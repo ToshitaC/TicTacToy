@@ -16,8 +16,7 @@ public class TicTacToe {
         boardCreation();
 
         choosingXorO();
-        currentBoard();2
-
+        currentBoard();
         userCall();
         userMove();
         tossCoin();
@@ -188,6 +187,35 @@ public class TicTacToe {
                     flag = 1;
                 }
             }
+        }
+        return flag;
+    }
+    private static int winBlock(char playerMark, char opponentMark) {
+        int winBlock[] = new int[3];
+        for (int i = 1; i < 9; i++) {
+            winBlock = winArray(i);
+        }
+        if (board[winBlock[0]] == board[winBlock[1]] && board[winBlock[0]] == playerMark
+                && board[winBlock[2]] != opponentMark) {
+            flag = winBlock[2];
+        } else if (board[winBlock[0]] == board[winBlock[2]] && board[winBlock[2]] == playerMark
+                && board[winBlock[1]] != opponentMark) {
+            flag = winBlock[1];
+        } else if (board[winBlock[1]] == board[winBlock[2]] && board[winBlock[2]] == playerMark
+                && board[winBlock[0]] != opponentMark) {
+            flag = winBlock[0];
+        }
+        return flag;
+    }
+
+    private static int computerWin() {
+        int index = winBlock(computerMark, userMark);
+        if (index != 0) {
+            board[index] = computerMark;
+            System.out.println("My choice is '" + index + "'");
+            currentBoard();
+            System.out.println("I won. Better Luck next time");
+            flag = 1;
         }
         return flag;
     }
